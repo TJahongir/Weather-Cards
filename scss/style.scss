@@ -25,20 +25,80 @@ body {
   font-family: 'Muli', 'Montserrat', sans-serif;
   width: 95%;
   margin: 0 auto;
+  height: 100vh;
 
   .cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    height: 90%;
     .card {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       flex-direction: column;
       width: 45%;
       border: 5px solid #fff;
       border-radius: 15px;
       color: #fff;
+      padding: 1.2rem 2.4rem;
+      height: 50%;
+
+      .city-info {
+        flex: 1;
+        .city {
+          font-size: 3.4rem;
+        }
+      }
+
+      .center {
+        flex: 2;
+
+        .weather-info {
+          display: flex;
+          align-items: center;
+
+          .temperature {
+            font-size: 6.5rem;
+            margin-right: 2rem;
+          }
+        }
+
+        .additional-info {
+          display: flex;
+          justify-content: space-around;
+
+          p {
+            font-size: 1.8rem;
+          }
+        }
+      }
+
+      .more-temp {
+        .description {
+          font-size: 2.4em;
+        }
+      }
+    }
+
+    .sevenDays {
+      display: none;
+    }
+  }
+
+  .text {
+    width: 45%;
+    margin: 0 auto;
+    text-align: center;
+
+    h4 {
+      font-size: 1.5rem;
+      color: #fff;
+
+      a {
+        font-size: 1.5rem;
+        text-decoration: underline;
+      }
     }
   }
 }
