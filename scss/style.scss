@@ -1,8 +1,14 @@
 * {
   margin: 0;
   padding: 0;
-  font-size: 25px;
+  font-size: 10px;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
 }
 
 body {
@@ -29,9 +35,10 @@ body {
       display: flex;
       justify-content: center;
       flex-direction: column;
-      align-items: center;
       width: 45%;
       border: 5px solid #fff;
+      border-radius: 15px;
+      color: #fff;
     }
   }
 }
