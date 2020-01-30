@@ -62,18 +62,24 @@ body {
             font-size: 6.5rem;
             margin-right: 2rem;
           }
-        }
-
-        .additional-info {
-          display: flex;
-          justify-content: space-around;
-
-          p {
-            font-size: 1.8rem;
+          .icon {
+            align-self: flex-start;
           }
         }
       }
 
+      .additional-info {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        p {
+          font-size: 1.8rem;
+          i {
+            font-size: 1.8rem;
+          }
+        }
+      }
       .more-temp {
         .description {
           font-size: 2.4em;
