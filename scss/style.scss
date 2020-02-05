@@ -11,6 +11,23 @@ a {
   font-weight: bold;
 }
 
+.search-box {
+  padding: 1rem 1.2rem;
+  width: 70%;
+  margin: 0 auto;
+  outline: none;
+  border: 3px solid #fff;
+  border-radius: 15px;
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+
+  &::placeholder {
+    color: #fff;
+  }
+}
+
 body {
   background: #1c92d2; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -26,13 +43,14 @@ body {
   width: 95%;
   margin: 0 auto;
   height: 100vh;
-
   .cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
     height: 90%;
+    padding: 4rem 0 2rem;
+    width: 100%;
+    justify-content: space-around;
+    align-items: space-between;
     .card {
       display: flex;
       justify-content: space-between;
@@ -42,7 +60,7 @@ body {
       border-radius: 15px;
       color: #fff;
       padding: 1.2rem 2.4rem;
-      height: 50%;
+      height: 45%;
 
       .city-info {
         flex: 1;
@@ -89,6 +107,23 @@ body {
 
     .sevenDays {
       display: none;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      width: 45%;
+      height: 45%;
+      align-items: center;
+      border: 5px solid #fff;
+      border-radius: 15px;
+
+      .plus {
+        width: 100%;
+        max-width: 100px;
+        cursor: pointer;
+        display: none;
+      }
     }
   }
 

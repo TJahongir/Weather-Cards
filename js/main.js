@@ -37,9 +37,10 @@ window.addEventListener('load', () => {
           const timezone = data.timezone;
           const temperatureC = Math.floor(((temperature - 32) * 5) / 9);
           timezoneDOM.textContent = timezone;
-          temperatureDOM.textContent = `${temperatureC}C`;
+          temperatureDOM.textContent = `${temperatureC}°C`;
           windSpeedDOM.innerHTML = `<i class="fas fa-wind"></i> ${windSpeed} m/s, SE`;
-          humidityDOM.innerHTML = `<i class="fas fa-tint"></i> ${humidity}%`;
+          humidityDOM.innerHTML = `<i class="fas fa-tint"></i> ${humidity *
+            100}%`;
           pressureDOM.innerHTML = `<i class="fas fa-gem"></i> ${pressure}mmhg`;
           descriptionDOM.textContent = summary;
 
