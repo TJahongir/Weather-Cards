@@ -11,23 +11,6 @@ a {
   font-weight: bold;
 }
 
-.search-box {
-  padding: 1rem 1.2rem;
-  width: 70%;
-  margin: 0 auto;
-  outline: none;
-  border: 3px solid #fff;
-  border-radius: 15px;
-  font-size: 1.5rem;
-  font-family: 'Montserrat', sans-serif;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.2);
-
-  &::placeholder {
-    color: #fff;
-  }
-}
-
 body {
   background: #1c92d2; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -49,18 +32,44 @@ body {
     height: 90%;
     padding: 4rem 0 2rem;
     width: 100%;
-    justify-content: space-around;
-    align-items: space-between;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    .search {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      .search-box {
+        position: relative;
+        padding: 1rem 1.2rem;
+        width: 100%;
+        max-width: 36rem;
+        margin: 2rem auto 4rem;
+        outline: none;
+        border: 3px solid #fff;
+        border-radius: 15px;
+        font-size: 1.5rem;
+        font-family: 'Montserrat', sans-serif;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.2);
+
+        &::placeholder {
+          color: #fff;
+        }
+      }
+    }
+
     .card {
       display: flex;
       justify-content: space-between;
       flex-direction: column;
-      width: 45%;
+      width: 35%;
       border: 5px solid #fff;
       border-radius: 15px;
       color: #fff;
       padding: 1.2rem 2.4rem;
-      height: 45%;
+      height: 70%;
 
       .city-info {
         flex: 1;
@@ -79,9 +88,11 @@ body {
           .temperature {
             font-size: 6.5rem;
             margin-right: 2rem;
+            margin-top: 3rem;
           }
           .icon {
             align-self: flex-start;
+            margin-bottom: 2rem;
           }
         }
       }
