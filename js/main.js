@@ -1,3 +1,5 @@
+// Google API = AIzaSyBSUbC8bzhm1S09Q9DJ71au4G7MMiPJUo0
+
 window.addEventListener('load', () => {
   let long;
   let lat;
@@ -20,6 +22,11 @@ window.addEventListener('load', () => {
     alert('Refresh the Page or Search for a city;');
   }
 });
+
+function activatePlacesSearch() {
+  const input = document.querySelector('.search-box');
+  let autocomplete = new google.maps.places.Autocomplete(input);
+}
 
 function searchCity(city) {
   const geoApi = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=d6eae1b4d90d4bb5bff15f2b29fd2776`;
