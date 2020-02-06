@@ -16,7 +16,7 @@ window.addEventListener('load', () => {
     navigator.geolocation.getCurrentPosition(position => {
       long = position.coords.longitude;
       lat = position.coords.latitude;
-      getWeather(long, lat);
+      searchCoordinates(long, lat);
     });
   } else {
     alert('Refresh the Page or Search for a city;');
@@ -29,6 +29,7 @@ window.addEventListener('load', () => {
 } */
 
 function searchCity(city) {
+  const timezoneDOM = document.querySelector('.city');
   const geoApi = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=d6eae1b4d90d4bb5bff15f2b29fd2776`;
   fetch(geoApi)
     .then(response => {
@@ -37,12 +38,36 @@ function searchCity(city) {
     .then(data => {
       long = data.results[0].geometry.lng;
       lat = data.results[0].geometry.lat;
+
+      let city =
+        data.results[0].components.city || data.results[0].components.state;
+      let country = data.results[0].components.country;
+      console.log(data);
+
+      timezoneDOM.innerHTML = `${city}, ${country}`;
+      getWeather(long, lat);
+    });
+}
+
+function searchCoordinates(long, lat) {
+  const timezoneDOM = document.querySelector('.city');
+  const geoApi = `https://api.opencagedata.com/geocode/v1/json?q=${lat},${long}&pretty=1&key=d6eae1b4d90d4bb5bff15f2b29fd2776`;
+  fetch(geoApi)
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      let city =
+        data.results[0].components.city || data.results[0].components.state;
+      let country = data.results[0].components.country;
+      console.log(data);
+
+      timezoneDOM.innerHTML = `${city}, ${country}`;
       getWeather(long, lat);
     });
 }
 
 function getWeather(long, lat) {
-  const timezoneDOM = document.querySelector('.city');
   const temperatureDOM = document.querySelector('.temperature');
   const windSpeedDOM = document.querySelector('.wind-speed');
   const humidityDOM = document.querySelector('.humidity');
@@ -58,7 +83,6 @@ function getWeather(long, lat) {
       return response.json();
     })
     .then(data => {
-      console.log(data);
       const {
         temperature,
         windSpeed,
@@ -72,7 +96,6 @@ function getWeather(long, lat) {
         ? data.timezone.replace(/_/g, ' ')
         : data.timezone;
       const temperatureC = Math.floor(((temperature - 32) * 5) / 9);
-      timezoneDOM.textContent = timezone;
       temperatureDOM.textContent = `${temperatureC}°C`;
       windSpeedDOM.innerHTML = `<i class="fas fa-wind"></i> ${windSpeed} m/s, SE`;
       humidityDOM.innerHTML = `<i class="fas fa-tint"></i> ${humidity * 100}%`;
