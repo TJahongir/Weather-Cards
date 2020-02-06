@@ -13,10 +13,10 @@ window.addEventListener('load', () => {
   });
 
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
+    navigator.geolocation.getCurrentPosition(async position => {
       long = position.coords.longitude;
       lat = position.coords.latitude;
-      searchCoordinates(long, lat);
+      await searchCoordinates(long, lat);
     });
   } else {
     alert('Refresh the Page or Search for a city;');
@@ -28,46 +28,38 @@ window.addEventListener('load', () => {
   let autocomplete = new google.maps.places.Autocomplete(input);
 } */
 
-function searchCity(city) {
+const searchCity = async city => {
   const timezoneDOM = document.querySelector('.city');
   const geoApi = `https://api.opencagedata.com/geocode/v1/json?q=${city}&key=d6eae1b4d90d4bb5bff15f2b29fd2776`;
-  fetch(geoApi)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      long = data.results[0].geometry.lng;
-      lat = data.results[0].geometry.lat;
+  const res = await fetch(geoApi);
+  const data = await res.json();
 
-      let city =
-        data.results[0].components.city || data.results[0].components.state;
-      let country = data.results[0].components.country;
-      console.log(data);
+  long = data.results[0].geometry.lng;
+  lat = data.results[0].geometry.lat;
 
-      timezoneDOM.innerHTML = `${city}, ${country}`;
-      getWeather(long, lat);
-    });
-}
+  city = data.results[0].components.city || data.results[0].components.state;
+  let country = data.results[0].components.country;
+  console.log(data);
 
-function searchCoordinates(long, lat) {
+  timezoneDOM.innerHTML = `${city}, ${country}`;
+  await getWeather(long, lat);
+};
+
+const searchCoordinates = async (long, lat) => {
   const timezoneDOM = document.querySelector('.city');
   const geoApi = `https://api.opencagedata.com/geocode/v1/json?q=${lat},${long}&pretty=1&key=d6eae1b4d90d4bb5bff15f2b29fd2776`;
-  fetch(geoApi)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      let city =
-        data.results[0].components.city || data.results[0].components.state;
-      let country = data.results[0].components.country;
-      console.log(data);
+  const res = await fetch(geoApi);
+  const data = await res.json();
 
-      timezoneDOM.innerHTML = `${city}, ${country}`;
-      getWeather(long, lat);
-    });
-}
+  city = data.results[0].components.city || data.results[0].components.state;
+  let country = data.results[0].components.country;
+  console.log(data);
 
-function getWeather(long, lat) {
+  timezoneDOM.innerHTML = `${city}, ${country}`;
+  await getWeather(long, lat);
+};
+
+const getWeather = async (long, lat) => {
   const temperatureDOM = document.querySelector('.temperature');
   const windSpeedDOM = document.querySelector('.wind-speed');
   const humidityDOM = document.querySelector('.humidity');
@@ -78,33 +70,27 @@ function getWeather(long, lat) {
   const proxy = 'https://cors-anywhere.herokuapp.com/';
   const api = `${proxy}https://api.darksky.net/forecast/9638da9b952374c4e4123853d9ff5169/${lat},${long}`;
 
-  fetch(api)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      const {
-        temperature,
-        windSpeed,
-        humidity,
-        pressure,
-        summary,
-        icon
-      } = data.currently;
+  const res = await fetch(api);
+  const data = await res.json();
 
-      const timezone = data.timezone
-        ? data.timezone.replace(/_/g, ' ')
-        : data.timezone;
-      const temperatureC = Math.floor(((temperature - 32) * 5) / 9);
-      temperatureDOM.textContent = `${temperatureC}°C`;
-      windSpeedDOM.innerHTML = `<i class="fas fa-wind"></i> ${windSpeed} m/s, SE`;
-      humidityDOM.innerHTML = `<i class="fas fa-tint"></i> ${humidity * 100}%`;
-      pressureDOM.innerHTML = `<i class="fas fa-gem"></i> ${pressure}mmhg`;
-      descriptionDOM.textContent = summary;
+  const {
+    temperature,
+    windSpeed,
+    humidity,
+    pressure,
+    summary,
+    icon
+  } = data.currently;
 
-      setIcons(icon, iconDOM);
-    });
-}
+  const temperatureC = Math.floor(((temperature - 32) * 5) / 9);
+  temperatureDOM.textContent = `${temperatureC}°C`;
+  windSpeedDOM.innerHTML = `<i class="fas fa-wind"></i> ${windSpeed} m/s, SE`;
+  humidityDOM.innerHTML = `<i class="fas fa-tint"></i> ${humidity * 100}%`;
+  pressureDOM.innerHTML = `<i class="fas fa-gem"></i> ${pressure}mmhg`;
+  descriptionDOM.textContent = summary;
+
+  setIcons(icon, iconDOM);
+};
 
 // Icons
 function setIcons(icon, iconID) {
